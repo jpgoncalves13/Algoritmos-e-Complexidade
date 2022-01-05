@@ -1,5 +1,6 @@
 
 
+
 #include "graphs.h"
 
 
@@ -64,26 +65,65 @@ void graphLtoM(GraphM gm, GraphL gl, int n) {
 
 
 void graphMtoL(GraphL gl, GraphM gm, int n) {
-
-
+    int i,j;
+    struct edge *new, *head;
+    for(i=0; i<n; i++){
+        head = NULL;
+        for(j=n-1; j>=0; j--){
+            if(gm[i][j] != NE){
+                new = malloc(sizeof(struct edge));
+                new -> weight = gm[i][j];
+                new -> dest = j;
+                new -> next = head; 
+                head = new;
+            }
+            gl[i] = new;
+        }
+    }
     //graphMtoL_sol(gl, gm, n);
 }
 
 
 
 int inDegree (GraphL g, int j, int n) {
-    return inDegree_sol(g, j, n);
+    struct edge * v;
+    int i, count=0;
+    for (i=0; i<n; i++){
+        v = g[i];
+        while(v){
+        if (v->dest == j) {
+            count++;
+        }
+        v = v -> next;
+        }
+    }
+    return count;
 }
 
 
 
 int outDegree (GraphL g, int j) {
-    return outDegree_sol(g, j);
+    struct edge * v;
+    v = g[j];
+    int count = 0;
+    while (v){
+        if (v->dest != 0) count++;
+        v = v->next;
+    }
+    return count;
+    //return outDegree_sol(g, j);
 }
 
 
 int capacidadeL (GraphL g, int v, int n) {
-    return  capacidadeL_sol (g, v, n);
+    /*struct edge * f;
+    int count = 0;
+    f = g[v];
+    while (f){
+        if (f->weight != 0) count-=f->weight;
+        f = f->next;
+    }*/
+    return capacidadeL_sol(g,v,n);
 }
 
 int maxCap (GraphL g, int n) {
