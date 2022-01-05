@@ -116,16 +116,30 @@ int outDegree (GraphL g, int j) {
 
 
 int capacidadeL (GraphL g, int v, int n) {
-    /*struct edge * f;
+    struct edge * f;
     int count = 0;
     f = g[v];
-    while (f){
-        if (f->weight != 0) count-=f->weight;
-        f = f->next;
-    }*/
-    return capacidadeL_sol(g,v,n);
+    for(i=0; i<n; i++){
+      for(f=g[i]; p; p = p->next){
+       if(i==v) {
+           count -= f->weight;
+       }
+       else if (v == f->dest) count += f->weight;
+   }
+}
+  return count;
 }
 
+
 int maxCap (GraphL g, int n) {
-    return maxCap_sol (g, n);
+    int i, max, aux, aux2 = 0;
+    max = capacidadeL(g,0,n);
+    for (i=1; i<n; i++){
+        aux = capacidade(g,i,n);
+        if (aux > max) {
+            max = aux;
+            aux2 = i;
+        }
+    }
+    return aux2;
 }
