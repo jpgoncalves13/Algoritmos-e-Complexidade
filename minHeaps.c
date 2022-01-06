@@ -85,6 +85,20 @@ int minHeapOK (Heap h) {
 }
 
 
+void ordenaheap(int h[], int N){
+    int i;
+    int v[N];
+    for (i=N-1;i>=0;i--) {
+        v[i]=h[0];
+        h[0]=h[i];   
+        bubbledown(0,h,i);
+    }
+    for (i=0;i<N;i++) {
+        h[i]=v[i];
+    }
+}
+
+
 int main()
 {
 
